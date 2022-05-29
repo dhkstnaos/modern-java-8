@@ -1,10 +1,12 @@
 package third;
 
 import second.Apple;
+import second.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -65,5 +67,10 @@ public class main {
 
         Function<Integer, Apple> c2 = Apple::new;
         Apple apple2 = c2.apply(200);
+
+        BiFunction<Color,Integer,Apple> biFunction = Apple::new;
+        Apple appleBiFunction = biFunction.apply(GREEN, 100);
+
+
     }
 }
