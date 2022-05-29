@@ -2,6 +2,7 @@ package second;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static second.Color.GREEN;
 import static second.Color.RED;
@@ -37,6 +38,16 @@ public class version {
         return result;
     }
 
+    public static <T> List<T> filter(List<T> list, Predicate<T> p) {
+        List<T> result = new ArrayList<>();
+        for (T e : list) {
+            if (p.test(e)) {
+                result.add(e);
+            }
+        }
+        return result;
+    }
+
 
     public static void main(String[] args) {
         List<Apple> inventory = List.of(new Apple(GREEN, 1500), new Apple(RED, 2000), new Apple(GREEN, 4800), new Apple(RED, 7700), new Apple(RED, 850));
@@ -51,6 +62,7 @@ public class version {
         int sum = highPriceApples.stream().mapToInt(Apple::getPrice).sum();
         System.out.println(sum);
 
+        //익명클래스로 필터링
         List<Apple> apples = filterApples(inventory, new ApplePredicate() {
             @Override
             public boolean test(Apple apple) {
@@ -58,6 +70,14 @@ public class version {
             }
         });
 
+        //람다로 필터링
         List<Apple> lambdaApples = filterApples(inventory, (Apple apple) -> RED.equals(apple.getColor()));
+
+        //리스트 형식으로 추상화
+        List<Apple> filter = filter(inventory, (Apple apple) -> RED.equals(apple.getColor()));
+        List<Integer> numbers = List.of(2,6,41,5);
+        List<Integer> evenNumbers = filter(numbers, (Integer i) -> i % 2 == 0);
+        System.out.println(evenNumbers);
+
     }
 }
