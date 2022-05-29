@@ -3,6 +3,7 @@ package second;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.function.Predicate;
 
 import static second.Color.GREEN;
@@ -49,8 +50,7 @@ public class version {
         return result;
     }
 
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         List<Apple> inventory = List.of(new Apple(GREEN, 1500), new Apple(RED, 2000), new Apple(GREEN, 4800), new Apple(RED, 7700), new Apple(RED, 850));
         List<Apple> greenApples = filterGreenApples(inventory);
         List<Apple> redApples = filterApplesByColor(inventory, RED);
@@ -101,5 +101,17 @@ public class version {
         });
 
         Thread t2 = new Thread(() -> System.out.println("Hello World"));
+
+        //Callable로 return 값 반환하기
+        MyCallable callable = new MyCallable();
+        String call = callable.call();
+        System.out.println(call);
+    }
+
+    public static class MyCallable implements Callable<String> {
+        @Override
+        public String call() throws Exception {
+            return "callable";
+        }
     }
 }
