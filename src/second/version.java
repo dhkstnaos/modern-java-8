@@ -1,6 +1,7 @@
 package second;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -75,9 +76,30 @@ public class version {
 
         //리스트 형식으로 추상화
         List<Apple> filter = filter(inventory, (Apple apple) -> RED.equals(apple.getColor()));
-        List<Integer> numbers = List.of(2,6,41,5);
+        List<Integer> numbers = List.of(2, 6, 41, 5);
         List<Integer> evenNumbers = filter(numbers, (Integer i) -> i % 2 == 0);
         System.out.println(evenNumbers);
 
+        //compator로 정렬
+        inventory.sort(new Comparator<Apple>() {
+            @Override
+            public int compare(Apple o1, Apple o2) {
+                return o1.getPrice() - o2.getPrice();
+            }
+        });
+        //람다를 활용
+        inventory.sort(
+                (Apple a1, Apple a2) -> a1.getPrice() - a2.getPrice()
+        );
+
+        //Runnable
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Hello World");
+            }
+        });
+
+        Thread t2 = new Thread(() -> System.out.println("Hello World"));
     }
 }
