@@ -16,15 +16,3 @@ public class firstVersion {
         return result;
     }
 }
-
-class Apple {
-    Color color;
-
-    public Apple(Color color) {
-        this.color = color;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-}
