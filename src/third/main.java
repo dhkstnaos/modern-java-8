@@ -3,6 +3,7 @@ package third;
 import second.Apple;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -20,6 +21,12 @@ public class main {
         return result;
     }
 
+    public static <T> void forEach(List<T> list, Consumer<T> c) {
+        for (T t : list) {
+            c.accept(t);
+        }
+    }
+
     public static void main(String[] args) {
         List<Apple> inventory = List.of(
                 new Apple(GREEN, 1500),
@@ -28,10 +35,13 @@ public class main {
                 new Apple(RED, 7700),
                 new Apple(RED, 850)
         );
+        //Predicate 커스텀
         Predicate<String> nonEmptyStringPredicate = (String s) -> s.length() > 7;
         List<String> list = List.of("", "sdfdfsfset4", "5lkfb", "dfp;ovsdfsdfsf");
         List<String> nonEmpty = filter(list, nonEmptyStringPredicate);
         System.out.println(nonEmpty);
 
+        //Consumer 커스텀
+        forEach(Arrays.asList(1, 2, 3, 4, 5), (Integer i) -> System.out.println(i));
     }
 }
