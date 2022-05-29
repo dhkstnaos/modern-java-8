@@ -9,6 +9,15 @@ public class Apple {
         this.color = color;
     }
 
+    public Apple() {
+        this.price = 1000;
+        this.color = Color.RED;
+    }
+
+    public Apple(Integer price) {
+        this.price = price;
+    }
+
     public int getPrice() {
         return price;
     }

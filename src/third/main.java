@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import static second.Color.GREEN;
 import static second.Color.RED;
@@ -57,5 +58,12 @@ public class main {
                 Arrays.asList("lambdas", "in", "action"), (String s) -> s.length()
         );
         System.out.println(map);
+
+        //생성자 참조
+        Supplier<Apple> c1 = Apple::new;
+        Apple apple = c1.get();
+
+        Function<Integer, Apple> c2 = Apple::new;
+        Apple apple2 = c2.apply(200);
     }
 }
