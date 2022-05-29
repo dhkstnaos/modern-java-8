@@ -27,6 +27,14 @@ public class main {
         }
     }
 
+    public static <T, R> List<R> map(List<T> list, Function<T, R> f) {
+        List<R> result = new ArrayList<>();
+        for (T e : list) {
+            result.add(f.apply(e));
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         List<Apple> inventory = List.of(
                 new Apple(GREEN, 1500),
@@ -43,5 +51,11 @@ public class main {
 
         //Consumer 커스텀
         forEach(Arrays.asList(1, 2, 3, 4, 5), (Integer i) -> System.out.println(i));
+
+        //Fuction 커스텀
+        List<Integer> map = map(
+                Arrays.asList("lambdas", "in", "action"), (String s) -> s.length()
+        );
+        System.out.println(map);
     }
 }
