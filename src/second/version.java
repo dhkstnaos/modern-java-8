@@ -38,7 +38,6 @@ public class version {
     }
 
 
-
     public static void main(String[] args) {
         List<Apple> inventory = List.of(new Apple(GREEN, 1500), new Apple(RED, 2000), new Apple(GREEN, 4800), new Apple(RED, 7700), new Apple(RED, 850));
         List<Apple> greenApples = filterGreenApples(inventory);
@@ -59,5 +58,6 @@ public class version {
             }
         });
 
+        List<Apple> lambdaApples = filterApples(inventory, (Apple apple) -> RED.equals(apple.getColor()));
     }
 }
