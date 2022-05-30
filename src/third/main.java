@@ -5,13 +5,11 @@ import second.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import static java.util.Comparator.comparing;
 import static second.Color.GREEN;
 import static second.Color.RED;
 
@@ -65,7 +63,7 @@ public class main {
 
         //생성자 참조
         Supplier<Apple> c1 = Apple::new;
-        Apple apple = c1.get();
+        Apple apple3 = c1.get();
 
         Function<Integer, Apple> c2 = Apple::new;
         Apple apple2 = c2.apply(200);
@@ -73,26 +71,62 @@ public class main {
         BiFunction<Color, Integer, Apple> biFunction = Apple::new;
         Apple appleBiFunction = biFunction.apply(GREEN, 100);
 
-        //익명 클래스
-        inventory.sort(new Comparator<Apple>() {
-            @Override
-            public int compare(Apple o1, Apple o2) {
-                return o1.getPrice() - o2.getPrice();
-            }
-        });
+//        //익명 클래스
+//        inventory.sort(new Comparator<Apple>() {
+//            @Override
+//            public int compare(Apple o1, Apple o2) {
+//                return o1.getPrice() - o2.getPrice();
+//            }
+//        });
+//
+//        //람다 표현식
+//        inventory.sort((Apple o1, Apple o2) -> o1.getPrice() - o2.getPrice());
+//
+//        //코드 간소화
+//        inventory.sort(comparing(a -> a.getPrice()));
+//
+//        //메서드 참조
+//        inventory.sort(comparing(Apple::getPrice));
+//
+//        //역정렬
+//        inventory.sort(comparing(Apple::getPrice).reversed());
+//
+//        //가격순으로 정렬하나 가격이 같을땐 컬러별로 정렬
+//        inventory.sort(comparing(Apple::getPrice)
+//                .reversed()
+//                .thenComparing(Apple::getColor));
 
-        //람다 표현식
-        inventory.sort((Apple o1, Apple o2) -> o1.getPrice() - o2.getPrice());
+        Predicate<Apple> redApple = (Apple a) -> a.getColor().equals(RED);
 
-        //코드 간소화
-        inventory.sort(comparing(a -> a.getPrice()));
+        //Negate 하기
+        Predicate<Apple> notRedApple = redApple.negate();
 
-        //메서드 참조
-        inventory.sort(comparing(Apple::getPrice));
+        //And 조건 걸어보기
+        Predicate<Apple> redAndHighPrice = redApple.and(apple -> apple.getPrice() > 1000);
 
-        //역정렬
-        inventory.sort(comparing(Apple::getPrice).reversed());
+        //복잡한 조건 걸기
+        Predicate<Apple> orGreen = redAndHighPrice.or(apple -> apple.getColor().equals(GREEN));
 
+        List<Apple> filter = filter(inventory, redApple);
+        filter.stream().forEach(e -> System.out.println(e.getColor() + ":" + e.getPrice()));
+
+        List<Apple> notApplesAndHighPriceFilter = filter(inventory, redAndHighPrice);
+        notApplesAndHighPriceFilter.stream().forEach(e -> System.out.println(e.getColor() + ":" + e.getPrice()));
+
+        List<Apple> notApplesAndHighPriceOrGreenFilter = filter(inventory, orGreen);
+        notApplesAndHighPriceOrGreenFilter.stream().forEach(e -> System.out.println(e.getColor() + ":" + e.getPrice()));
+
+        //Function 활용하기
+        java.util.function.Function<Integer, Integer> f = x -> x + 1;
+        java.util.function.Function<Integer, Integer> g = x -> x * 2;
+        java.util.function.Function<Integer, Integer> andThen = f.andThen(g);
+
+        java.util.function.Function<Integer, Integer> compose = f.compose(g);
+
+        Integer apply1 = andThen.apply(1);
+        System.out.println("apply1 = " + apply1);
+        Integer apply2 = compose.apply(1);
+        System.out.println("apply2 = " + apply2);
 
     }
 }
