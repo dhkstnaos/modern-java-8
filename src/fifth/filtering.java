@@ -5,8 +5,10 @@ import fourth.Dish;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static fourth.Dish.Type.FISH;
 import static fourth.Dish.Type.OTHER;
 import static fourth.Dish.menu;
 
@@ -78,6 +80,20 @@ public class filtering {
             System.out.println("isVegeterian");
         }
 
+        if (menus.stream().filter(dish -> dish.getType().equals(FISH)).noneMatch(Dish::isVegetarian)) {
+            System.out.println("isNotVegeterian");
+        }
+
+        Optional<Dish> any = menus.stream()
+                .filter(Dish::isVegetarian)
+                .findAny();
+        Optional<Dish> first = menus.stream()
+                .filter(Dish::isVegetarian)
+                .findFirst();
+        menus.stream()
+                .filter(Dish::isVegetarian)
+                .findAny()
+                .ifPresent(dish -> System.out.println(dish.getName()));
     }
 
 }
