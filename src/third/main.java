@@ -5,11 +5,13 @@ import second.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import static java.util.Comparator.comparing;
 import static second.Color.GREEN;
 import static second.Color.RED;
 
@@ -68,9 +70,21 @@ public class main {
         Function<Integer, Apple> c2 = Apple::new;
         Apple apple2 = c2.apply(200);
 
-        BiFunction<Color,Integer,Apple> biFunction = Apple::new;
+        BiFunction<Color, Integer, Apple> biFunction = Apple::new;
         Apple appleBiFunction = biFunction.apply(GREEN, 100);
 
+        //익명 클래스
+        inventory.sort(new Comparator<Apple>() {
+            @Override
+            public int compare(Apple o1, Apple o2) {
+                return o1.getPrice() - o2.getPrice();
+            }
+        });
 
+        //람다 표현식
+        inventory.sort((Apple o1, Apple o2) -> o1.getPrice() - o2.getPrice());
+
+        //코드 간소화
+        inventory.sort(comparing(a -> a.getPrice()));
     }
 }
