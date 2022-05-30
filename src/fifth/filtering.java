@@ -101,6 +101,19 @@ public class filtering {
                 .filter(n -> n % 3 == 0)
                 .findFirst();
         System.out.println(numsFirst);
+
+        String str = null;
+        Optional<String> optional = Optional.ofNullable(str);
+        System.out.println(optional.orElse("hello"));
+        System.out.println(optional.orElseGet(() -> "no name"));
+
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+
+        int sums = nums.stream().reduce(0, (a, b) -> a + b);
+        System.out.println(sums);
     }
 
 }
