@@ -49,6 +49,17 @@ public class filtering {
         for (Dish dish : collect1) {
             System.out.println(dish.getCalories());
         }
+
+        List<Dish> filters = menus.stream()
+                .filter(dish -> dish.getCalories() < 320)
+                .limit(3)
+                .collect(Collectors.toList());
+
+        List<String> strings = menus.stream()
+                .map(Dish::getName)
+                .collect(Collectors.toList());
+
+
     }
 
 }
