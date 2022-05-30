@@ -114,6 +114,10 @@ public class filtering {
 
         int sums = nums.stream().reduce(0, (a, b) -> a + b);
         System.out.println(sums);
+        
+        nums.stream().reduce(0, Integer::sum);
+        int max = nums.stream().reduce(0, Integer::max);
+        nums.stream().reduce(Integer::max);
     }
 
 }
