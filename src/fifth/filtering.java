@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static fourth.Dish.Type.OTHER;
 import static fourth.Dish.menu;
 
 public class filtering {
@@ -15,10 +16,10 @@ public class filtering {
                 new Dish("pork", false, 800, Dish.Type.MEAT),
                 new Dish("beef", false, 700, Dish.Type.MEAT),
                 new Dish("chicken", false, 400, Dish.Type.MEAT),
-                new Dish("french fries", true, 530, Dish.Type.OTHER),
-                new Dish("rice", true, 350, Dish.Type.OTHER),
-                new Dish("season fruit", true, 120, Dish.Type.OTHER),
-                new Dish("pizza", true, 550, Dish.Type.OTHER),
+                new Dish("french fries", true, 530, OTHER),
+                new Dish("rice", true, 350, OTHER),
+                new Dish("season fruit", true, 120, OTHER),
+                new Dish("pizza", true, 550, OTHER),
                 new Dish("prawns", false, 400, Dish.Type.FISH),
                 new Dish("salmon", false, 450, Dish.Type.FISH)
         );
@@ -59,6 +60,23 @@ public class filtering {
                 .map(Dish::getName)
                 .collect(Collectors.toList());
 
+        String[] words = {"Hello", "World"};
+        List<String[]> collect2 = Arrays.stream(words)
+                .map(word -> word.split(""))
+                .distinct()
+                .collect(Collectors.toList());
+
+        List<Integer> list1 = List.of(1, 2, 3);
+        List<Integer> list2 = List.of(4, 5);
+        List<int[]> collect3 = list1.stream()
+                .flatMap(i -> list2.stream()
+                        .filter(j -> j % 2 == 0)
+                        .map(j -> new int[]{i, j}))
+                .collect(Collectors.toList());
+
+        if (menus.stream().filter(dish -> dish.getType().equals(OTHER)).anyMatch(Dish::isVegetarian)) {
+            System.out.println("isVegeterian");
+        }
 
     }
 
