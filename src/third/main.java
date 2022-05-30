@@ -128,5 +128,6 @@ public class main {
         Integer apply2 = compose.apply(1);
         System.out.println("apply2 = " + apply2);
 
+
     }
 }
