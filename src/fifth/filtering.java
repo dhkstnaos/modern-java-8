@@ -94,6 +94,13 @@ public class filtering {
                 .filter(Dish::isVegetarian)
                 .findAny()
                 .ifPresent(dish -> System.out.println(dish.getName()));
+
+        List<Integer> nums = List.of(1, 2, 3, 4, 5);
+        Optional<Integer> numsFirst = nums.stream()
+                .map(n -> n * n)
+                .filter(n -> n % 3 == 0)
+                .findFirst();
+        System.out.println(numsFirst);
     }
 
 }
