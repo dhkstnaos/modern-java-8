@@ -86,5 +86,8 @@ public class main {
 
         //코드 간소화
         inventory.sort(comparing(a -> a.getPrice()));
+
+        //메서드 참조
+        inventory.sort(comparing(Apple::getPrice));
     }
 }
