@@ -89,5 +89,10 @@ public class main {
 
         //메서드 참조
         inventory.sort(comparing(Apple::getPrice));
+
+        //역정렬
+        inventory.sort(comparing(Apple::getPrice).reversed());
+
+
     }
 }
