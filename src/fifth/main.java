@@ -1,10 +1,12 @@
 package fifth;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import fourth.Dish;
+
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static fourth.Dish.menu;
 
 public class main {
     static Trader raoul = new Trader("Raoul", "Cambridge");
@@ -67,5 +69,19 @@ public class main {
                 .min(Comparator.comparing(Transaction::getValue));
         // 거래가 없을 때 기본 문자열을 사용할 수 있도록발견된 거래가 있으면 문자열로 바꾸는 꼼수를 사용함(예, the Stream is empty)
         minTransaction.map(String::valueOf).orElse("No Transactions");
+
+        int sum = menu.stream()
+                .mapToInt(Dish::getCalories)
+                .sum();
+
+        OptionalInt maxOptional = menu.stream()
+                .mapToInt(Dish::getCalories)
+                .max();
+
+        Stream<String> modern = Stream.of("Modern", "JAVA");
+        Stream<String> empty = Stream.empty();
+
+        String home = System.getProperty("home");
+        Stream<String> stream= home == null ? Stream.empty() : Stream.of(home);
     }
 }
