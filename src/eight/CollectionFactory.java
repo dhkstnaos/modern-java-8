@@ -3,6 +3,7 @@ package eight;
 import fifth.Trader;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Map.entry;
 
@@ -85,6 +86,9 @@ public class CollectionFactory {
         map.merge("kelly", 50, (k, v) -> map.get("john") + 10);
 
         mergingMaps();
+
+        //conCurrentHashMap
+        conCurrentHashMap();
     }
 
     private static void mergingMaps() {
@@ -112,5 +116,15 @@ public class CollectionFactory {
         //중복 밸류를 로직을 통해 처리할 수 있다.
         friends2.forEach((k,v) -> everyone2.merge(k,v,(m1, m2)-> m1+ "&" + m2));
         System.out.println(everyone2);
+    }
+
+    private static void conCurrentHashMap() {
+        //동시성 친화적이고, 동기화된 HashTable보다 읽기,쓰기 연산 기능이 월등이 높다.
+        ConcurrentHashMap<String, Long> map = new ConcurrentHashMap<>();
+        map.put("1",1L);
+        map.put("#$",3L);
+        long parallelism = 1;
+        Optional<Long> maxValue = Optional.ofNullable(map.reduceValues(parallelism, Long::max));
+        System.out.println(maxValue.get());
     }
 }
