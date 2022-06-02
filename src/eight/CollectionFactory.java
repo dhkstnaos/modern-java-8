@@ -50,6 +50,14 @@ public class CollectionFactory {
         System.out.println(ageOfFriends.getOrDefault("Olivia", 0));
         System.out.println(ageOfFriends.getOrDefault("rily", 0));
 
+        //computeIfAbsent 제공된 키에 해당 값이 없으면 새 값을 계산하고 맵에 추가
+        Map<String, List<String>> friendsToMap = new HashMap<>();
+        friendsToMap.computeIfAbsent("null",name-> new ArrayList<>())
+                .add("plus movie");
+        System.out.println(friendsToMap);
+        //compute 제공된 키로 새 값을 계산하고 맵에 저장한다.
+
+
 
     }
 }
