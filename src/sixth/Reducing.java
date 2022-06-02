@@ -1,6 +1,7 @@
 package sixth;
 
 import java.util.Comparator;
+import java.util.DoubleSummaryStatistics;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ public class Reducing {
         System.out.println(minCaloriesDish().get());
         System.out.println(averageCaloriesDishes());
         System.out.println(sumCaloriesDishes());
+        System.out.println(summaryDishes().toString());
     }
 
     private static int calculateTotalCalories() {
@@ -39,5 +41,9 @@ public class Reducing {
 
     private static Double sumCaloriesDishes() {
         return menu.stream().collect(Collectors.summingDouble(Dish::getCalories));
+    }
+
+    private static DoubleSummaryStatistics summaryDishes() {
+        return menu.stream().collect(Collectors.summarizingDouble(Dish::getCalories));
     }
 }
