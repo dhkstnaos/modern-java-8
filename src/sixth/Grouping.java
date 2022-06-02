@@ -25,6 +25,7 @@ public class Grouping {
         System.out.println("partitionedMenu() = " + partitionedMenu());
         System.out.println("partitionedMenuByType() = " + partitionedMenuByType());
         System.out.println("mostCaloricPartitionedByVegetarian() = " + mostCaloricPartitionedByVegetarian());
+        System.out.println("caloriesByTypeBest() = " + caloriesByTypeBest());
     }
 
     private static Map<Dish.Type, List<Dish>> dishesByType() {
