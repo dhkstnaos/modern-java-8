@@ -3,7 +3,6 @@ package eight;
 import fifth.Trader;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class CollectionFactory {
     public static void main(String[] args) {
@@ -47,6 +46,10 @@ public class CollectionFactory {
                 .sorted(Map.Entry.comparingByValue())
                 .forEachOrdered(System.out::println);
 
-        //get
+        //getOrDefault
+        System.out.println(ageOfFriends.getOrDefault("Olivia", 0));
+        System.out.println(ageOfFriends.getOrDefault("rily", 0));
+
+
     }
 }
