@@ -7,7 +7,7 @@ import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.*;
 import static sixth.Dish.dishTags;
 import static sixth.Dish.menu;
-import static sixth.Grouping.CaloricLevel.chooseCaloricLevel;
+import static sixth.Grouping.CaloricLevel.classifyingCaloricLevel;
 
 public class Grouping {
     public static void main(String[] args) {
@@ -37,7 +37,7 @@ public class Grouping {
 //            else if (dish.getCalories() <= 700) return CaloricLevel.NORMAL;
 //            else return CaloricLevel.FAT;
 //        }));
-        return menu.stream().collect(groupingBy(dish -> chooseCaloricLevel(dish.getCalories())));
+        return menu.stream().collect(groupingBy(dish -> classifyingCaloricLevel(dish.getCalories())));
     }
 
     //이렇게 되면 FISH 타입은 생기지 않는다. 우리는 이걸 의도한게 아니다.
@@ -86,7 +86,7 @@ public class Grouping {
     private static Map<Dish.Type, Map<CaloricLevel, List<Dish>>> groupDishedByTypeAndCaloricLevel() {
         return menu.stream().collect(
                 groupingBy(Dish::getType,
-                        groupingBy(dish -> chooseCaloricLevel(dish.getCalories()))
+                        groupingBy(dish -> classifyingCaloricLevel(dish.getCalories()))
                 )
         );
     }
@@ -119,7 +119,7 @@ public class Grouping {
         return menu.stream().collect(
                 groupingBy(Dish::getType,
                         mapping(
-                                dish -> chooseCaloricLevel(dish.getCalories()), toCollection(HashSet::new)
+                                dish -> classifyingCaloricLevel(dish.getCalories()), toCollection(HashSet::new)
                         ))
         );
     }
@@ -145,7 +145,7 @@ public class Grouping {
     public enum CaloricLevel {
         DIET, NORMAL, FAT;
 
-        public static CaloricLevel chooseCaloricLevel(Integer calories) {
+        public static CaloricLevel classifyingCaloricLevel(Integer calories) {
             if (calories <= 400) return CaloricLevel.DIET;
             else if (calories <= 700) return CaloricLevel.NORMAL;
             else return CaloricLevel.FAT;

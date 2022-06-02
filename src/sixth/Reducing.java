@@ -42,6 +42,10 @@ public class Reducing {
         return menu.stream().collect(Collectors.averagingDouble(Dish::getCalories));
     }
 
+    private static Double sumCaloriesDishesMapToDouble() {
+        return menu.stream().mapToDouble(Dish::getCalories).sum();
+    }
+
     private static Double sumCaloriesDishes() {
         return menu.stream().collect(Collectors.summingDouble(Dish::getCalories));
     }
