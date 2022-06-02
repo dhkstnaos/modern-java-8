@@ -4,6 +4,8 @@ import fifth.Trader;
 
 import java.util.*;
 
+import static java.util.Map.entry;
+
 public class CollectionFactory {
     public static void main(String[] args) {
         //List.of
@@ -52,12 +54,63 @@ public class CollectionFactory {
 
         //computeIfAbsent 제공된 키에 해당 값이 없으면 새 값을 계산하고 맵에 추가
         Map<String, List<String>> friendsToMap = new HashMap<>();
-        friendsToMap.computeIfAbsent("null",name-> new ArrayList<>())
+        friendsToMap.computeIfAbsent("null", name -> new ArrayList<>())
                 .add("plus movie");
         System.out.println(friendsToMap);
         //compute 제공된 키로 새 값을 계산하고 맵에 저장한다.
 
+        //remove
+        friendsToMap.remove("Olivia");
 
+        Map<String, String> favouriteMovies = new HashMap<>();
+        favouriteMovies.put("Raphael", "Star Wars");
+        favouriteMovies.put("Olivia", "james bond");
+        //replaceAll
+        favouriteMovies.replaceAll((friend, movie) -> movie.toUpperCase());
+        System.out.println(favouriteMovies);
 
+        //merge
+        Map<String, Integer> map = new HashMap<>();
+        map.put("john", 20);
+        map.put("paul", 30);
+        map.put("peter", 40);
+
+        //key값이 존재를 하면, 해당 key의 값을 remapping 함수의 결과 값으로 바꾼다
+        map.merge("peter", 50, (k, v) -> map.get("john") + 10);
+
+        //key가 존재하고 remapping 함수의 결과가 null이면 map에서 해당 key를 삭제한다
+        map.merge("peter", 30, (k, v) -> map.get("nancy"));
+
+        //key가 존재하지 않으면 key, value값을 추가함
+        map.merge("kelly", 50, (k, v) -> map.get("john") + 10);
+
+        mergingMaps();
+    }
+
+    private static void mergingMaps() {
+        Map<String, String> family = Map.ofEntries(
+                entry("Teo", "Star Wars"),
+                entry("Cristina", "James Bond")
+        );
+        Map<String, String> friends = Map.ofEntries(
+                entry("Raphael", "Star Wars"),
+                entry("Cristina", "Son")
+        );
+
+        Map<String, String> everyone = new HashMap<>(family);
+        //덮어버린다.
+        everyone.putAll(friends);
+        System.out.println(everyone);
+
+        Map<String, String> friends2 = Map.ofEntries(
+                entry("Raphael", "Star Wars"),
+                entry("Cristina", "Matrix")
+        );
+
+        Map<String, String> everyone2 = new HashMap<>(family);
+
+        //중복 밸류를 로직을 통해 처리할 수 있다.
+        friends2.forEach((k,v) -> everyone2.merge(k,v,(m1, m2)-> m1+ "&" + m2));
+        System.out.println(everyone2);
     }
 }
