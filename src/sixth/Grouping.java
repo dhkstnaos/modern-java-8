@@ -22,6 +22,9 @@ public class Grouping {
         System.out.println("subGroupCountingByType() = " + subGroupCountingByType());
         System.out.println("mostCaloricDishesByTypeWithoutOptional() = " + mostCaloricDishesByTypeWithoutOptional());
         System.out.println("caloricLevelsByType() = " + caloricLevelsByType());
+        System.out.println("partitionedMenu() = " + partitionedMenu());
+        System.out.println("partitionedMenuByType() = " + partitionedMenuByType());
+        System.out.println("mostCaloricPartitionedByVegetarian() = " + mostCaloricPartitionedByVegetarian());
     }
 
     private static Map<Dish.Type, List<Dish>> dishesByType() {
@@ -118,6 +121,24 @@ public class Grouping {
                         mapping(
                                 dish -> chooseCaloricLevel(dish.getCalories()), toCollection(HashSet::new)
                         ))
+        );
+    }
+
+    private static Map<Boolean, List<Dish>> partitionedMenu() {
+        return menu.stream().collect(Collectors.partitioningBy(Dish::isVegetarian));
+    }
+
+    private static Map<Boolean, Map<Dish.Type, List<Dish>>> partitionedMenuByType() {
+        return menu.stream().collect(
+                partitioningBy(Dish::isVegetarian,
+                        groupingBy(Dish::getType)));
+    }
+
+    private static Map<Boolean, Dish> mostCaloricPartitionedByVegetarian() {
+        return menu.stream().collect(
+                partitioningBy(Dish::isVegetarian,
+                        collectingAndThen(maxBy(comparingInt(Dish::getCalories)),
+                                Optional::get))
         );
     }
 
