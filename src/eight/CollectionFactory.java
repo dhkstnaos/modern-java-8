@@ -2,16 +2,13 @@ package eight;
 
 import fifth.Trader;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CollectionFactory {
     public static void main(String[] args) {
         //List.of
         List<String> friends = List.of("dhkstn", "frank", "josh");
-        System.out.println(friends);
         //friends.add("hi");
         Set<String> sets = Set.of("dhkstn", "frank", "josh");
 
@@ -26,8 +23,30 @@ public class CollectionFactory {
         transactions.add(new Transaction(new Trader("do", "yongin"), 2032, 2000));
         transactions.add(new Transaction(new Trader("vv", "yongin"), 2002, 1000));
 
+        //removeIf
         System.out.println(transactions);
-        transactions.removeIf(transaction -> Character.isDigit(transaction.getTrader().getCity().charAt(0)));
-        System.out.println(transactions);
+        //transactions.removeIf(transaction -> Character.isDigit(transaction.getTrader().getCity().charAt(0)));
+        //System.out.println(transactions);
+
+        //removeAll
+        List<String> referenceCodes = Arrays.asList("a12", "C14", "b13");
+        System.out.println("Back to the original: " + referenceCodes);
+        referenceCodes.replaceAll(code -> Character.toUpperCase(code.charAt(0)) + code.substring(1));
+        System.out.println("referenceCodes = " + referenceCodes);
+
+        //forEach
+        referenceCodes.stream().forEach(System.out::println);
+
+        //
+        Map<String, Integer> ageOfFriends = Map.of("Raphael", 30, "Olivia", 25, "Thibaut", 26);
+        ageOfFriends.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEach(System.out::println);
+
+        ageOfFriends.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEachOrdered(System.out::println);
+
+        //get
     }
 }
