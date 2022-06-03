@@ -1,4 +1,4 @@
-package seven;
+package eight;
 
 import fifth.Trader;
 
