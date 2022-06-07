@@ -15,7 +15,6 @@ public class Main {
         main.methodChaining();
         main.nestedFunction();
         main.lambda();
-        main.mixed();
     }
 
     public void plain() {
@@ -99,20 +98,5 @@ public class Main {
         System.out.println(order);
     }
 
-    public void mixed() {
-        Order order =
-                forCustomer("BigBank",
-                        buy(t -> t.quantity(80)
-                                .stock("IBM")
-                                .on("NYSE")
-                                .at(125.00)),
-                        sell(t -> t.quantity(50)
-                                .stock("GOOGLE")
-                                .on("NASDAQ")
-                                .at(375.00)));
-
-        System.out.println("Mixed:");
-        System.out.println(order);
-    }
 
 }

@@ -21,9 +21,7 @@ import ten.model.Tax;
 
 import java.util.function.DoubleUnaryOperator;
 
-import static ten.MethodChainingOrderBuilder.forCustomer;
-import static ten.NestedFunctionOrderBuilder.buy;
-import static ten.NestedFunctionOrderBuilder.sell;
+import static ten.NestedFunctionOrderBuilder.*;
 
 public class TaxCalculator {
 
@@ -47,16 +45,14 @@ public class TaxCalculator {
     }
 
     public static void main(String[] args) {
-        Order order =
-                forCustomer("BigBank",
-                        buy(t -> t.quantity(80)
-                                .stock("IBM")
-                                .on("NYSE")
-                                .at(125.00)),
-                        sell(t -> t.quantity(50)
-                                .stock("GOOGLE")
-                                .on("NASDAQ")
-                                .at(125.00)));
+        Order order = order("BigBank",
+                buy(80,
+                        stock("IBM", on("NYSE")),
+                        at(125.00)),
+                sell(50,
+                        stock("GOOGLE", on("NASDAQ")),
+                        at(375.00))
+        );
 
         double value = TaxCalculator.calculate(order, true, false, true);
         System.out.printf("Boolean arguments: %.2f%n", value);
