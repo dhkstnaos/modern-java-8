@@ -4,6 +4,8 @@ import ten.model.Order;
 import ten.model.Stock;
 import ten.model.Trade;
 
+import static ten.MethodChainingOrderBuilder.forCustomer;
+
 public class Main {
 
     public static void main(String[] args) {
