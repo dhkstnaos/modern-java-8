@@ -11,9 +11,7 @@ public class CollectionFactory {
     public static void main(String[] args) {
         //List.of
         List<String> friends = List.of("dhkstn", "frank", "josh");
-        //friends.add("hi");
         Set<String> sets = Set.of("dhkstn", "frank", "josh");
-
         Map<String, Integer> maps = Map.of("dhkstn", 10, "frank", 20, "josh", 30);
 
         //setting
@@ -39,8 +37,11 @@ public class CollectionFactory {
         //forEach
         referenceCodes.stream().forEach(System.out::println);
 
+
         //
         Map<String, Integer> ageOfFriends = Map.of("Raphael", 30, "Olivia", 25, "Thibaut", 26);
+        ageOfFriends.forEach((key, value) -> System.out.println(key + ":" + value));
+
         ageOfFriends.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .forEach(System.out::println);
@@ -53,6 +54,7 @@ public class CollectionFactory {
         System.out.println(ageOfFriends.getOrDefault("Olivia", 0));
         System.out.println(ageOfFriends.getOrDefault("rily", 0));
 
+        ageOfFriends.put("Hello",ageOfFriends.getOrDefault("Hello",0)+1);
         //computeIfAbsent 제공된 키에 해당 값이 없으면 새 값을 계산하고 맵에 추가
         Map<String, List<String>> friendsToMap = new HashMap<>();
         friendsToMap.computeIfAbsent("null", name -> new ArrayList<>())
@@ -114,15 +116,15 @@ public class CollectionFactory {
         Map<String, String> everyone2 = new HashMap<>(family);
 
         //중복 밸류를 로직을 통해 처리할 수 있다.
-        friends2.forEach((k,v) -> everyone2.merge(k,v,(m1, m2)-> m1+ "&" + m2));
+        friends2.forEach((k, v) -> everyone2.merge(k, v, (m1, m2) -> m1 + "&" + m2));
         System.out.println(everyone2);
     }
 
     private static void conCurrentHashMap() {
         //동시성 친화적이고, 동기화된 HashTable보다 읽기,쓰기 연산 기능이 월등이 높다.
         ConcurrentHashMap<String, Long> map = new ConcurrentHashMap<>();
-        map.put("1",1L);
-        map.put("#$",3L);
+        map.put("1", 1L);
+        map.put("#$", 3L);
         long parallelism = 1;
         Optional<Long> maxValue = Optional.ofNullable(map.reduceValues(parallelism, Long::max));
         System.out.println(maxValue.get());
