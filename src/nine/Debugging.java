@@ -1,14 +1,16 @@
 package nine;
 
 
-import java.util.Arrays;
-import java.util.List;
-
 public class Debugging {
 
     public static void main(String[] args) {
-        List<Point> points = Arrays.asList(new Point(12, 2), null);
-        points.stream().map(p -> p.getX()).forEach(System.out::println);
+        testMove();
+    }
+
+    public static void testMove() {
+        Point p1 = new Point(5, 5);
+        Point p2 = p1.moveMoveRightBy(5);
+        System.out.println(p2.x);
     }
 
     private static class Point {
@@ -27,6 +29,10 @@ public class Debugging {
 
         public void setX(int x) {
             this.x = x;
+        }
+
+        public Point moveMoveRightBy(int x) {
+            return new Point(this.x + x, this.y);
         }
 
     }
