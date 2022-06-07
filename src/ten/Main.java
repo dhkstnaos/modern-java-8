@@ -5,6 +5,7 @@ import ten.model.Stock;
 import ten.model.Trade;
 
 import static ten.MethodChainingOrderBuilder.forCustomer;
+import static ten.NestedFunctionOrderBuilder.*;
 
 public class Main {
 
