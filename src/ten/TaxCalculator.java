@@ -27,6 +27,11 @@ import static ten.NestedFunctionOrderBuilder.sell;
 
 public class TaxCalculator {
 
+    public DoubleUnaryOperator taxFunction = d -> d;
+    private boolean useRegional;
+    private boolean useGeneral;
+    private boolean useSurcharge;
+
     public static double calculate(Order order, boolean useRegional, boolean useGeneral, boolean useSurcharge) {
         double value = order.getValue();
         if (useRegional) {
@@ -39,40 +44,6 @@ public class TaxCalculator {
             value = Tax.surcharge(value);
         }
         return value;
-    }
-
-    private boolean useRegional;
-    private boolean useGeneral;
-    private boolean useSurcharge;
-
-    public TaxCalculator withTaxRegional() {
-        useRegional = true;
-        return this;
-    }
-
-    public TaxCalculator withTaxGeneral() {
-        useGeneral = true;
-        return this;
-    }
-
-    public TaxCalculator withTaxSurcharge() {
-        useSurcharge = true;
-        return this;
-    }
-
-    public double calculate(Order order) {
-        return calculate(order, useRegional, useGeneral, useSurcharge);
-    }
-
-    public DoubleUnaryOperator taxFunction = d -> d;
-
-    public TaxCalculator with(DoubleUnaryOperator f) {
-        taxFunction = taxFunction.andThen(f);
-        return this;
-    }
-
-    public double calculateF(Order order) {
-        return taxFunction.applyAsDouble(order.getValue());
     }
 
     public static void main(String[] args) {
@@ -99,6 +70,34 @@ public class TaxCalculator {
                 .with(Tax::surcharge)
                 .calculateF(order);
         System.out.printf("Method references: %.2f%n", value);
+    }
+
+    public TaxCalculator withTaxRegional() {
+        useRegional = true;
+        return this;
+    }
+
+    public TaxCalculator withTaxGeneral() {
+        useGeneral = true;
+        return this;
+    }
+
+    public TaxCalculator withTaxSurcharge() {
+        useSurcharge = true;
+        return this;
+    }
+
+    public double calculate(Order order) {
+        return calculate(order, useRegional, useGeneral, useSurcharge);
+    }
+
+    public TaxCalculator with(DoubleUnaryOperator f) {
+        taxFunction = taxFunction.andThen(f);
+        return this;
+    }
+
+    public double calculateF(Order order) {
+        return taxFunction.applyAsDouble(order.getValue());
     }
 
 }

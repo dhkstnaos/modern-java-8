@@ -16,9 +16,6 @@
 
 package ten;
 
-import modernjavainaction.chap10.dsl.model.Order;
-import modernjavainaction.chap10.dsl.model.Stock;
-import modernjavainaction.chap10.dsl.model.Trade;
 import ten.model.Order;
 import ten.model.Stock;
 import ten.model.Trade;
