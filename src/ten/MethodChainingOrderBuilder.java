@@ -35,8 +35,8 @@ public class MethodChainingOrderBuilder {
 
     public static class TradeBuilder {
 
-        private final MethodChainingOrderBuilder builder;
         public final Trade trade = new Trade();
+        private final MethodChainingOrderBuilder builder;
 
         private TradeBuilder(MethodChainingOrderBuilder builder, Trade.Type type, int quantity) {
             this.builder = builder;
