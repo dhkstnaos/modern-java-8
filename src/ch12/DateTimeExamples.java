@@ -138,6 +138,7 @@ public class DateTimeExamples {
     System.out.println(date.format(formatter));
     System.out.println(date.format(italianFormatter));
 
+    ZoneId of = ZoneId.of("Europe/Rome");
     DateTimeFormatter complexFormatter = new DateTimeFormatterBuilder()
         .appendText(ChronoField.DAY_OF_MONTH)
         .appendLiteral(". ")
